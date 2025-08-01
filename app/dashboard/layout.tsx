@@ -7,7 +7,7 @@ import { FalconCanvasDashboard } from "@/components/Falcon/FalconCanvasDashboard
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <SidebarProvider>
-      <div className="absolute inset-0 bg-black/80 ">
+      <div className="absolute inset-0 ">
         <FalconCanvasDashboard />
       </div>
       <div className="z-10 flex h-screen w-screen mx-2 ">
