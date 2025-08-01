@@ -100,15 +100,17 @@ export function DataTable<TData extends Starship, TValue>({
 
   return (
     <>
-      <div className="flex items-center mt-2 space-x-2">
+      <div className="sm:flex items-center mt-2 space-x-2 grid grid-cols-2 gap-2">
+
         <Input
           placeholder="Filter name..."
           value={(table.getColumn("name")?.getFilterValue() as string) ?? ""}
           onChange={(event) =>
             table.getColumn("name")?.setFilterValue(event.target.value)
           }
-          className="max-w-sm"
-        />
+          className="max-w-xs col-span-2"
+          />
+ 
 
         <Select
           onValueChange={(value) => {
@@ -120,7 +122,7 @@ export function DataTable<TData extends Starship, TValue>({
               ?.getFilterValue() as string) ?? ""
           }
         >
-          <SelectTrigger className="w-[200px]">
+          <SelectTrigger className="sm:w-[200px]">
             <SelectValue placeholder="Hyperdrive filter" />
           </SelectTrigger>
           <SelectContent>
@@ -187,7 +189,7 @@ export function DataTable<TData extends Starship, TValue>({
                   key={row.id}
                   data-state={row.getIsSelected() && "selected"}
                 >
-                  <TableCell>
+                  <TableCell className="w-0">
                     <Input
                       type="checkbox"
                       className="w-4 h-4"
@@ -197,7 +199,7 @@ export function DataTable<TData extends Starship, TValue>({
                     />
                   </TableCell>
                   {row.getVisibleCells().map((cell) => (
-                    <TableCell key={cell.id} className="border text-xs sm:text-base wrap-break-word">
+                    <TableCell key={cell.id} className="border text-xs sm:text-base break-words whitespace-normal max-w-xs">
                       {flexRender(
                         cell.column.columnDef.cell,
                         cell.getContext()
