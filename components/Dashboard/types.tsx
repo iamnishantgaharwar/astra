@@ -1,4 +1,5 @@
 export interface Starship {
+  id?: string;
   name: string;
   model: string;
   cost_in_credits: string;
@@ -16,6 +17,7 @@ export interface Starship {
   created: string;
   edited: string;
   url: string;
+  manufacturer?: string;
 }
 
 export interface Pilot {

@@ -16,13 +16,14 @@ import { Pilot, Starship } from "@/components/Dashboard/types";
 
 const Dashboard = () => {
     const [search, setSearch] = useAtom(searchAtom);
-    const searchParams = useSearchParams();
+    const searchParams = useSearchParams().get("search");
     const router = useRouter();
   
+
+
     useEffect(() => {
-      const urlSearch = searchParams.get("search") || "";
-      setSearch(urlSearch);
-    }, []);
+      router.replace(`?search=${search}`);
+    }, [searchParams, router, search])
   
     const debouncedSearch = useDebounce(search);
   
@@ -140,24 +141,6 @@ const Dashboard = () => {
                     ) : (
                       pilotNames.join(", ")
                     )}
-                  </div>
-                  <div>
-                    <strong>Created:</strong>{" "}
-                    {new Date(selectedStarship.created).toLocaleString()}
-                  </div>
-                  <div>
-                    <strong>Edited:</strong>{" "}
-                    {new Date(selectedStarship.edited).toLocaleString()}
-                  </div>
-                  <div className="col-span-2">
-                    <strong>URL:</strong>{" "}
-                    <a
-                      href={selectedStarship.url}
-                      className="text-blue-600 underline"
-                      target="_blank"
-                    >
-                      {selectedStarship.url}
-                    </a>
                   </div>
                 </>
               )}
