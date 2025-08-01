@@ -10,3 +10,5 @@ export const columnFilterAtom = atom<ColumnFiltersState>([])
 export const sortingAtom = atom<SortingState>([])
 
 export const rowSelectionAtom = atom<RowSelectionState>({})
+
+export const modalToggle = atom<boolean>(false)

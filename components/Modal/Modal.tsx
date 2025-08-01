@@ -8,6 +8,8 @@ import {
 } from "@/components/ui/dialog";
 import React from "react";
 import { Starship } from "../DataTable/columns";
+import { useAtom } from "jotai";
+import { modalToggle } from "@/Atoms/atom";
 
 interface ModalProps<TData extends { id: string }> {
   selectedShips: TData[];
@@ -15,8 +17,11 @@ interface ModalProps<TData extends { id: string }> {
 }
 
 const Modal = ({ selectedShips, children }: ModalProps<Starship>) => {
+  const [modalOpen, setModalOpen] = useAtom(modalToggle)
+
+  
   return (
-    <Dialog>
+    <Dialog open={modalOpen} onOpenChange={setModalOpen}>
       <DialogTrigger asChild>
         {children}
       </DialogTrigger>

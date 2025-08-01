@@ -18,6 +18,11 @@ const Dashboard = () => {
     const [search, setSearch] = useAtom(searchAtom);
     const searchParams = useSearchParams().get("search") as string
     const router = useRouter();
+
+
+    useEffect(() => {
+      router.push(`?search=${encodeURIComponent(search)}`)
+    }, [search])
   
     useEffect(() => {
       if(searchParams !== null || ""){

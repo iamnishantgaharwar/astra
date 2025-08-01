@@ -1,6 +1,6 @@
 "use client";
 
-import { pageAtom } from "@/Atoms/atom";
+import { pageAtom, rowSelectionAtom, modalToggle } from "@/Atoms/atom";
 import { fetchStarshipList } from "@/lib/api/getStarship";
 import { useQuery } from "@tanstack/react-query";
 import { useAtom } from "jotai";
@@ -12,7 +12,11 @@ import StarshipSkeleton from "./StarshipSkeleton";
 
 const StarshipList = () => {
   const [currentPage, setCurrentPage] = useAtom(pageAtom);
+  const [rowSelection, setRowSelection] = useAtom(rowSelectionAtom);
+  const [modalOpen, setModalOpen] = useAtom(modalToggle);
   const pageUrl = useSearchParams().get("page");
+  const rowSelectionUrl = useSearchParams().get("rowSelection");
+  const modalOpenUrl = useSearchParams().get("modalOpen");
   const router = useRouter();
 
   const {
@@ -26,18 +30,26 @@ const StarshipList = () => {
   });
 
   useEffect(() => {
-    router.replace(`?page=${currentPage}`);
-  }, [currentPage, router]);
+    router.push(
+      `?page=${currentPage}&rowSelection=${encodeURIComponent(
+        JSON.stringify(rowSelection)
+      )}&modalOpen=${modalOpen}`
+    );
+  }, [currentPage, rowSelection, modalOpen]);
 
   useEffect(() => {
     if (pageUrl) {
       setCurrentPage(parseInt(pageUrl));
     }
+    if (rowSelectionUrl) {
+      setRowSelection(JSON.parse(rowSelectionUrl));
+    }
+    if (modalOpenUrl) {
+      setModalOpen(JSON.parse(modalOpenUrl));
+    }
   }, [pageUrl, setCurrentPage]);
 
-  if (loadingList) return (
-    <StarshipSkeleton />
-  );
+  if (loadingList) return <StarshipSkeleton />;
   if (isError) return <div>Error: {isError}</div>;
   if (!starshipList) return <div>No data available</div>;
 
