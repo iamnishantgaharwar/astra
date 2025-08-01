@@ -16,14 +16,15 @@ import { Pilot, Starship } from "@/components/Dashboard/types";
 
 const Dashboard = () => {
     const [search, setSearch] = useAtom(searchAtom);
-    const searchParams = useSearchParams().get("search");
+    const searchParams = useSearchParams().get("search") as string
     const router = useRouter();
   
-
-
     useEffect(() => {
-      router.replace(`?search=${search}`);
-    }, [searchParams, router, search])
+      if(searchParams !== null || ""){
+        setSearch(searchParams)
+      }
+    }, [searchParams])
+
   
     const debouncedSearch = useDebounce(search);
   
