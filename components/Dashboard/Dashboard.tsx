@@ -57,8 +57,8 @@ const Dashboard = () => {
     };
   
     return (
-      <div className="py-6 space-y-6">  
-        <form onSubmit={handleSubmit} className="flex gap-2">
+      <div className="py-6 space-y-6 flex items-center flex-col justify-center min-w-1/2">  
+        <form onSubmit={handleSubmit} className="w-full">
           <Input
             value={search}
             onChange={(e) => {
@@ -67,7 +67,7 @@ const Dashboard = () => {
               router.replace(`?search=${encodeURIComponent(value)}`);
             }}
             placeholder="Enter starship name..."
-            className="max-w-sm"
+            className="text-center"
           />
         </form>
   

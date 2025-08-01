@@ -1,14 +1,19 @@
+
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar"
 import { AppSidebar } from "@/components/Sidebar/app-sidebar"
 import { ModeToggle } from "@/components/theme"
+import { FalconCanvasDashboard } from "@/components/Falcon/FalconCanvasDashboard"
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <SidebarProvider>
-      <div className="flex h-screen w-screen mx-2">
+      <div className="absolute inset-0 bg-black/80 ">
+        <FalconCanvasDashboard />
+      </div>
+      <div className="z-10 flex h-screen w-screen mx-2 ">
         <AppSidebar />
-        
-        <main className="flex-1">
+
+        <main className="flex-1 ">
           <div className="flex relative items-center">
             <div className="absolute mt-2 ml-2">
               <SidebarTrigger />
