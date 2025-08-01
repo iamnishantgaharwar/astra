@@ -1,4 +1,4 @@
-import { CircleGauge, Search } from "lucide-react"
+import { Search, List } from "lucide-react"
 
 import {
   Sidebar,
@@ -16,14 +16,14 @@ import Link from "next/link"
 // Menu items.
 const items = [
   {
-    title: "Dashboard",
+    title: "Search",
     url: "/dashboard",
-    icon: CircleGauge,
+    icon: Search,
   },
   {
-    title: "Search",
-    url: "/dashboard/home",
-    icon: Search,
+    title: "Starships List",
+    url: "/dashboard/starships",
+    icon: List,
   },
 ]
 

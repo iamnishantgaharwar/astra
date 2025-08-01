@@ -1,17 +1,12 @@
+import Dashboard from "@/components/Dashboard/Dashboard";
 
-
-const DashboardPage = async() => {
-  // https://swapi.tech/api/starships/?search=falcon
-
-
-
+const DashboardPage = () => {
   return (
-    <div className="w-full">
-      Dashboard
-    </div>
-  )
-}
+    <main className="p-6">
+      <h1 className="text-3xl font-bold">Search Starship</h1>
+      <Dashboard />
+    </main>
+  );
+};
 
-export default DashboardPage
-
-
+export default DashboardPage;
