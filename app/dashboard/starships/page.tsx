@@ -2,7 +2,7 @@ import StarshipList from "@/components/StarshipList/StarshipList"
 
 const Home = () => {
   return (
-    <main>
+    <main className="font-mono">
       <StarshipList />
     </main>
   )
