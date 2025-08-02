@@ -9,7 +9,6 @@ import {
   getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table";
-
 import { columnFilterAtom, pageAtom, rowSelectionAtom, sortingAtom } from "@/Atoms/atom";
 import {
   Table,
@@ -21,27 +20,15 @@ import {
 } from "@/components/ui/table";
 import { useAtom } from "jotai";
 import { Button } from "../ui/button";
-import {
-  DropdownMenu,
-  DropdownMenuCheckboxItem,
-  DropdownMenuContent,
-  DropdownMenuTrigger,
-} from "../ui/dropdown-menu";
 import { Input } from "../ui/input";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "../ui/select";
-
-import { ChevronDown } from "lucide-react";
+import { useIsMobile } from "@/hooks/use-mobile";
+import { useEffect } from "react";
 import Modal from "../Modal/Modal";
 import { Label } from "../ui/label";
 import { Starship } from "./columns";
-import { useIsMobile } from "@/hooks/use-mobile";
-import { useEffect } from "react";
+import InputFiter from "./InputFiter";
+import Rating from "./Rating";
+import ColumnFilter from "./ColumnFilter";
 
 
 interface DataTableProps<TData extends Starship, TValue> {
@@ -102,63 +89,11 @@ export function DataTable<TData extends Starship, TValue>({
     <>
       <div className="sm:flex items-center mt-2 space-x-2 grid grid-cols-2 gap-2">
 
-        <Input
-          placeholder="Filter name..."
-          value={(table.getColumn("name")?.getFilterValue() as string) ?? ""}
-          onChange={(event) =>
-            table.getColumn("name")?.setFilterValue(event.target.value)
-          }
-          className="max-w-xs col-span-2"
-          />
- 
+        <InputFiter table={table} />
 
-        <Select
-          onValueChange={(value) => {
-            table.getColumn("hyperdrive_rating")?.setFilterValue(value);
-          }}
-          value={
-            (table
-              .getColumn("hyperdrive_rating")
-              ?.getFilterValue() as string) ?? ""
-          }
-        >
-          <SelectTrigger className="sm:w-[200px]">
-            <SelectValue placeholder="Hyperdrive filter" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="0">All</SelectItem>
-            <SelectItem value="<1.0">&lt; 1.0</SelectItem>
-            <SelectItem value="1.0-2.0">1.0 – 2.0</SelectItem>
-            <SelectItem value=">2.0">&gt; 2.0</SelectItem>
-          </SelectContent>
-        </Select>
+        <Rating table={table} />
 
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant="outline" className="ml-auto">
-              Columns <ChevronDown />
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
-            {table
-              .getAllColumns()
-              .filter((column) => column.getCanHide())
-              .map((column) => {
-                return (
-                  <DropdownMenuCheckboxItem
-                    key={column.id}
-                    className="capitalize"
-                    checked={column.getIsVisible()}
-                    onCheckedChange={(value) =>
-                      column.toggleVisibility(!!value)
-                    }
-                  >
-                    {column.id}
-                  </DropdownMenuCheckboxItem>
-                );
-              })}
-          </DropdownMenuContent>
-        </DropdownMenu>
+        <ColumnFilter table={table} />
       </div>
       <div className="overflow-hidden rounded-md border">
         <Table>
